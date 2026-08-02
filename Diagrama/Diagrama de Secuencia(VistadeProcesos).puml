@@ -1,0 +1,38 @@
+@startuml
+title Vista de Procesos - Consulta de Ruta Óptima
+
+actor Usuario
+
+participant "Aplicación\nMóvil" as App
+participant "API Gateway" as API
+participant "Gestión de\nRutas" as Rutas
+participant "Gestión del\nTráfico" as Trafico
+database "Base de Datos" as BD
+participant "Servicios Externos\n(Mapas)" as Mapas
+
+Usuario -> App : Ingresa origen y destino
+
+App -> API : Solicitar ruta
+
+API -> Trafico : Consultar estado del tráfico
+
+Trafico -> BD : Obtener información vial
+BD --> Trafico : Estado del tráfico
+
+Trafico --> API : Información del tráfico
+
+API -> Rutas : Calcular ruta óptima
+
+Rutas -> Mapas : Consultar mapas
+Mapas --> Rutas : Información geográfica
+
+Rutas -> BD : Consultar historial de rutas
+BD --> Rutas : Datos disponibles
+
+Rutas --> API : Ruta calculada
+
+API --> App : Enviar resultado
+
+App --> Usuario : Mostrar ruta recomendada
+
+@enduml

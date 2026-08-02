@@ -1,0 +1,36 @@
+@startuml
+title Vista Conceptual - Sistema Inteligente de Movilidad Urbana
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+actor "Usuario" as Usuario
+actor "Centro de Control" as Centro
+
+package "Infraestructura Urbana" {
+
+    component "Sistema Inteligente de\nMovilidad Urbana" as Sistema
+
+    component "Red de\nSensores" as Sensores
+
+    database "Base de\nDatos" as BD
+
+}
+
+cloud "Servicios Externos\n(Mapas, Clima,\nEmergencias)" as Servicios
+
+Usuario --> Sistema : Consulta información\nSolicita rutas\nRecibe alertas
+
+Centro --> Sistema : Monitorea y administra
+
+Sensores --> Sistema : Envía datos del tráfico
+
+Sistema --> BD : Guarda y consulta información
+
+Sistema --> Servicios : Solicita información
+
+Servicios --> Sistema : Responde consultas
+
+Sistema --> Usuario : Estado del tráfico\nRutas óptimas\nAlertas
+
+@enduml

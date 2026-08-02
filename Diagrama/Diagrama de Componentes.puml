@@ -1,0 +1,55 @@
+@startuml
+title Vista Lógica - Diagrama de Componentes
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+actor Usuario
+actor "Centro de Control" as Centro
+actor "Sistema de Sensores" as Sensores
+
+package "Sistema Inteligente de Movilidad Urbana" {
+
+    component "Aplicación\nMóvil" as App
+    component "API Gateway" as API
+
+    component "Gestión del\nTráfico" as Trafico
+    component "Gestión de\nRutas" as Rutas
+    component "Gestión de\nSemáforos" as Semaforos
+    component "Gestión de\nAlertas" as Alertas
+    component "Administración" as Admin
+
+    database "Base de\nDatos" as BD
+
+}
+
+cloud "Servicios Externos\n(Mapas, Clima)" as Servicios
+
+Usuario --> App
+
+Centro --> Admin
+
+Sensores --> Trafico
+
+App --> API
+
+API --> Trafico
+API --> Rutas
+API --> Alertas
+API --> Admin
+
+Trafico --> Semaforos
+Trafico --> Alertas
+Trafico --> BD
+
+Rutas --> Servicios
+Rutas --> BD
+
+Semaforos --> BD
+
+Alertas --> App
+Alertas --> BD
+
+Admin --> BD
+
+@enduml
